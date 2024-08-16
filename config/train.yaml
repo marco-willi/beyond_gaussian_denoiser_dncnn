@@ -1,0 +1,49 @@
+paths:
+  #data_root_path: ${oc.env:DATA_PATH,/workspace/data}
+  data_root_path: /workspace/code/data
+  code_root_path: ${oc.env:CODE_PATH,/workspace/code}
+  train_scripts_path: ${paths.code_root_path}/src/stable_diffusion_hf/train
+  log_path: /workspace/code/logs
+
+debug: False
+
+defaults:
+  - _self_
+  - experiment: null
+  - override hydra/hydra_logging: disabled
+  - override hydra/job_logging: disabled
+
+timestamp: ${now:%Y-%m-%d_%H-%M-%S}
+
+hydra:
+  run:
+    #dir: ${paths.log_path}/${hydra.job.name}/${experiment.id}
+    dir: ${paths.log_path}/${hydra.job.name}/${experiment.id}_${timestamp}
+  #output_subdir: null
+
+wandb:
+  project: "DnCNN"
+  entity: "mwilli"
+  enable: True
+  run_id: ${experiment.id}_${timestamp}
+
+datasets:
+  raise1k:
+    train_path: "${paths.data_root_path}/RAISE1k/dataset/train"
+    val_path: "${paths.data_root_path}/RAISE1k/dataset/val"
+    test_path: "${paths.data_root_path}/RAISE1k/dataset/test"
+    cache_images: False
+    dataset_type: "LocalHFDataset"
+  bsd500:
+    # val and test deliberately switched because bsd68 is bsds500 val set
+    train_path: "${paths.data_root_path}/dcnn/bsds500/images/train"
+    val_path: "${paths.data_root_path}/dcnn/bsds500/images/test"
+    test_path: "${paths.data_root_path}/dcnn/bsds500/images/val"
+    cache_images: True
+    dataset_type: "ImageFolder"
+  cbsd68:
+    original_path: "${paths.data_root_path}/dcnn/cbsd68/original_png"
+    noisy15: "${paths.data_root_path}/dcnn/cbsd68/noisy15"
+    noisy25: "${paths.data_root_path}/dcnn/cbsd68/noisy25"
+    noisy50: "${paths.data_root_path}/dcnn/cbsd68/noisy50"
+    dataset_type: "ImageFolder"

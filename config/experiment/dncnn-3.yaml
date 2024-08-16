@@ -1,0 +1,40 @@
+# Experiment Name - used to store files
+id: DnCNN-3
+
+# Wandb settings
+wandb:
+  run_id: ${experiment.id}
+
+# Training settings
+train:
+  max_epochs: 150
+  max_steps: 2000
+  batch_size: 128
+  early_stopping_patience: 15
+  device: "gpu"
+  random_seed: 123
+  load_from_checkpoint: ""
+
+# Model settings
+model:
+  depth: 20
+  in_channels: 3
+  channels: 64
+  kernel_size: 3
+  normalization: "BN"
+
+# Data settings
+data:
+  dataset: "bsd500"
+  patch_size: 50
+  max_patches_per_image: 200
+  # noise type to add "awgn_only" or "combined"
+  train_noise_type: "combined"
+  train_noise_level_interval: [0, 55]
+  #train_noise_level_interval: [0, 15]
+  train_up_down_factors: [2, 3, 4]
+  train_jpeg_min_max: [5, 99]
+  val_noise_type: "combined"
+  val_up_down_factors: [2, 3, 4]
+  val_jpeg_min_max: [5, 99]
+  val_noise_level_interval: [0, 55]

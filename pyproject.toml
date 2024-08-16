@@ -1,0 +1,75 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[project]
+name = "gaussian_denoiser"
+version = "0.1.0"
+description = "Beyond Gaussian Denoiser"
+authors = [
+    { name = "Marco Willi", email = "marco.willi@fhnw.ch" }
+]
+
+dependencies = [
+    # Data Manipulation and Analysis
+    "pandas",
+    "numpy",
+    # Visualization & Images
+    "matplotlib",
+    "seaborn",
+    "Pillow",
+    "opencv-python-headless",
+    "scikit-image",
+    "torchshow",
+    # Data Loading and Preprocessing
+    "datasets",
+    "img2dataset",
+    "kornia",
+    # Pytorch
+    "torch",
+    "torchvision",
+    "torchaudio",
+    "torchmetrics",
+    "lightning",
+    "huggingface_hub",
+    # Configuration & Experiment Tracking
+    "hydra-optuna-sweeper",
+    "wandb",
+    "tensorboard",
+    "hydra-core",
+    "hydra-colorlog",
+    "python-dotenv",
+    "dvc",
+    # Jupyter
+    "jupyter",
+    "ipykernel",
+    "ipywidgets",
+    # Tools / Utils
+    "fire",
+    "tqdm",
+    "icecream",
+    "pyrootutils",
+    # Misc
+    "executing==1.1.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "black",
+    "jupyter-black",
+    "argcomplete",
+    "pytest",
+    "mypy",
+    "pre-commit",
+    "rich",
+    "ruff",
+    "isort",
+]
+
+[tool.pytest.ini_options]
+addopts = [
+    "--import-mode=importlib",
+]

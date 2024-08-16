@@ -1,0 +1,41 @@
+# Experiment Name - used to store files
+id: raise1k_low_noise
+
+# Wandb settings
+wandb:
+  run_id: ${experiment.id}
+
+# Training settings
+train:
+  max_epochs: 150
+  max_steps: 2000
+  batch_size: 128
+  early_stopping_patience: 5
+  device: "gpu"
+  random_seed: 124
+  load_from_checkpoint: ""
+
+# Model settings
+model:
+  depth: 20
+  in_channels: 3
+  channels: 64
+  kernel_size: 3
+  normalization: "BN"
+
+# Data settings
+data:
+  dataset: "raise1k"
+  patch_size: 64
+  max_patches_per_image: 200
+  # noise type to add "awgn_only" or "combined"
+  train_noise_type: "awgn_only"
+  #train_noise_level_interval: [0, 55]
+  train_noise_level_interval: [0, 15]
+  train_up_down_factors: [2, 3, 4]
+  train_jpeg_min_max: [5, 99]
+  val_noise_type: "awgn_only"
+  val_up_down_factors: [2, 3, 4]
+  val_jpeg_min_max: [5, 99]
+  #val_noise_level_interval: [25, 25]
+  val_noise_level_interval: [10, 10]
